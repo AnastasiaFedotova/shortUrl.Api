@@ -2,7 +2,6 @@
   "compilerOptions": {
       "target": "es5",
       "removeComments": true,
-      "outFile": "dest/app.js"
-  },
-  "files": ["src/app.ts"]
+      "outDir": "./dest"
+  }
 }
