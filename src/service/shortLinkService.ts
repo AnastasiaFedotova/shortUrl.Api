@@ -1,5 +1,7 @@
+const getRandomUrl = require("./../utils/getRandomUrl");
+
 function add(url : string) : string {
-  return url[0] + url.length + ".shl"
+  return `${url}: ${getRandomUrl()};`;
 }
 
 const urlService = {
