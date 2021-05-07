@@ -1,9 +1,9 @@
-function generate(url : string) : string {
+function add(url : string) : string {
   return url[0] + url.length + ".shl"
 }
 
-const shortenesService = {
-  generate
+const urlService = {
+  add
 };
 
-module.exports = shortenesService;
+module.exports = urlService;
