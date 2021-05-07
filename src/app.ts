@@ -9,3 +9,4 @@ app.use(bodyParser.json({ type: 'application/json' }));
 app.use(cors());
 app.use('/api/v1', router);
 app.listen(port);
+console.log("server started on port");
