@@ -4,11 +4,9 @@ const service = require("./../../service/shortLinkService");
 
 api.post("/", async(req, res) => {
   const { body } = req;
-  const shortLink = service.add(body.url);
+  const shortLink = await service.add(body);
 
-  res.json({
-    url: shortLink
-  });
+  res.json(shortLink);
 })
 
 module.exports = api;
