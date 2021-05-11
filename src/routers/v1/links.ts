@@ -12,9 +12,15 @@ linksApi.post("/", async (req, res) => {
     view_count: null
   };
 
-  const shortLink = await service.addLink(newLink);
+  const shortLink = await service.add(newLink);
 
   res.json(shortLink);
 })
 
-export { linksApi };
+linksApi.get("/", async (_req, res) => {
+  const shortLinksList = await service.read();
+
+  res.json(shortLinksList);
+})
+
+export = { linksApi };
