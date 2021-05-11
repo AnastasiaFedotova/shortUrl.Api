@@ -1,11 +1,16 @@
 {
   "compilerOptions": {
-      "target": "es5",
+      "target": "es6",
       "removeComments": true,
-      "outDir": "dist"
+      "module": "commonjs",
+      "outDir": "dist",
+      "types": ["node"]
   },
   "exclude": [
     "node_modules",
     "dist"
+  ],
+  "lib": [
+    "es2017"
   ]
 }
