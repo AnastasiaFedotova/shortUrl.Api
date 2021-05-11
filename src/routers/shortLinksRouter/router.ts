@@ -1,8 +1,8 @@
 const { Router } = require('express');
 const { LinksModel } = require('./../../config/dbShema')
-const usersRouter = Router();
+const shortLinksRouter = Router();
 
-usersRouter.get("/:link", async (req, res) => {
+shortLinksRouter.get("/:link", async (req, res) => {
   const link = req.params.link;
   LinksModel.findAll({ where: { short_url: link }, raw: true })
     .then(data => {
@@ -11,4 +11,4 @@ usersRouter.get("/:link", async (req, res) => {
     .catch(err => console.log(err));
 });
 
-export = usersRouter;
+export = shortLinksRouter;
