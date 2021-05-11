@@ -1,14 +1,10 @@
 const getRandomUrl = require("./../utils/getRandomUrl");
-const { LinksModel } = require("./../config/linksdb");
-const { Links } = require("./../interface/link");
+const { LinksModel } = require("./../config/dbShema");
+const { Links } = require("./../interface/links");
 
-function add<T>(link : typeof Links) : Promise<T> {
-  const res = LinksModel.create({
-    original_url: link.original_url,
-    short_url: getRandomUrl(),
-    user_id: null,
-    view_count: null
-  }).catch(err => {
+//function add(link: Links): Promise<Links> {
+function addLink(link: typeof Links): Promise<typeof Links> {
+  const res = LinksModel.create(link).catch(err => {
     console.log(err)
   })
 
@@ -16,7 +12,7 @@ function add<T>(link : typeof Links) : Promise<T> {
 }
 
 const urlService = {
-  add
+  addLink
 };
 
 module.exports = urlService;
