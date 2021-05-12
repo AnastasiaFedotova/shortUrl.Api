@@ -5,7 +5,7 @@ async function read(): Promise<Array<typeof Users>> {
   return await UsersModel.findAll();
 }
 
-function addUser(user: typeof Users): Promise<typeof Users> {
+function add(user: typeof Users): Promise<typeof Users> {
   const res = UsersModel.create(user).catch(err => {
     console.log(err);
   })
@@ -14,7 +14,7 @@ function addUser(user: typeof Users): Promise<typeof Users> {
 }
 
 const userService = {
-  addUser,
+  add,
   read
 };
 

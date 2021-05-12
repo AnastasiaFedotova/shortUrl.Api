@@ -13,7 +13,7 @@ usersApi.post("/", async (req, res) => {
   const { body } = req;
   body.id = v4().toString();
   console.log(body)
-  const user = await service.addUser(body);
+  const user = await service.add(body);
 
   res.json(user);
 });
