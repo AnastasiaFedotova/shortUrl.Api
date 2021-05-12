@@ -4,10 +4,12 @@ const shortLinksRouter = Router();
 
 shortLinksRouter.get("/:link", async (req, res) => {
   const link = req.params.link;
-  Links.findAll({ where: { short_url: link }, raw: true })
-    .then((data) => {
-      res.redirect(data[0].original_url);
-    })
+  try {
+    const data = await Links.findAll({ where: { short_url: link }, raw: true });
+    res.redirect(data[0].original_url)
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 export default shortLinksRouter;
