@@ -1,4 +1,4 @@
-module.exports = function getRandomString(length: number): string {
+export default function getRandomString(length: number): string {
   const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
   let result = '';
 

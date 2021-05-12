@@ -1,10 +1,15 @@
 {
   "compilerOptions": {
-      "target": "es6",
-      "removeComments": true,
+      "target": "ES2015",
       "module": "commonjs",
+      "removeComments": true,
       "outDir": "dist",
-      "types": ["node"]
+      "types": ["node"],
+      "moduleResolution": "node",
+      "esModuleInterop": true,
+      "typeRoots": [
+        "node_modules/@types"
+      ]
   },
   "exclude": [
     "node_modules",

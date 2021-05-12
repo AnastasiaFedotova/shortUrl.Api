@@ -1,8 +1,16 @@
-const express = require('express');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const routerV1api = require('./routers/v1/v1api');
-const shortLinksRouter = require('./routers/shortLinksRouter/router');
+import express from 'express';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+import routerV1api from './routers/v1/v1api';
+import shortLinksRouter from './routers/shortLinksRouter/router';
+import sequelize from './db/dbShema';
+
+sequelize.sync().then(result => {
+  console.log(result);
+}).catch(err => {
+  console.log(err);
+})
+
 const app = express();
 const port = process.env.PORT || 3000;
 

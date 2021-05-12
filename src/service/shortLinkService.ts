@@ -1,17 +1,17 @@
-const { LinksModel } = require("./../config/dbShema");
-const { Links } = require("./../interface/links");
+import Links from "./../interface/links";
 
-//function add(link: Links): Promise<Links> {
-async function add(link: typeof Links): Promise<typeof Links> {
-  const res = await LinksModel.create(link).catch(err => {
-    console.log(err)
-  })
+async function add(link: Links): Promise<Links> {
+  const res = await Links.create(link);
 
   return res;
 }
 
-async function read(): Promise<Array<typeof Links>> {
-  return await LinksModel.findAll();
+async function read(): Promise<Array<Links>> {
+  try {
+    return await Links.findAll();
+  } catch (err) {
+    console.log(err)
+  }
 }
 
 const urlService = {
@@ -19,4 +19,4 @@ const urlService = {
   read
 };
 
-export = urlService;
+export default urlService;
