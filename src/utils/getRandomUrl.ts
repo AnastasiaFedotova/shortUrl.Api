@@ -1,5 +1,4 @@
-module.exports = function getRandomString(): string {
-  const length = 5;
+module.exports = function getRandomString(length: number): string {
   const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
   let result = '';
 
