@@ -26,16 +26,16 @@ const LinksModel = sequelize.define("links", {
 
 const UsersModel = sequelize.define("users", {
   id: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING,
     primaryKey: true,
     allowNull: false
   },
   login: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING,
     allowNull: false
   },
   password: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING,
     allowNull: false
   }
 });
