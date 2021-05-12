@@ -3,6 +3,12 @@ const service = require("./../../service/shortLinkService");
 const linksApi = Router();
 const getRandomUrl = require("./../../utils/getRandomUrl")
 
+linksApi.get("/", async (_req, res) => {
+  const shortLinksList = await service.read();
+
+  res.json(shortLinksList);
+})
+
 linksApi.post("/", async (req, res) => {
   const { body } = req;
   const newLink = {
@@ -15,12 +21,6 @@ linksApi.post("/", async (req, res) => {
   const shortLink = await service.add(newLink);
 
   res.json(shortLink);
-})
-
-linksApi.get("/", async (_req, res) => {
-  const shortLinksList = await service.read();
-
-  res.json(shortLinksList);
 })
 
 export = { linksApi };
