@@ -9,9 +9,9 @@ async function read(): Promise<Array<User>> {
   }
 }
 
-function add(user: Users): Promise<User> {
+async function add(user: Users): Promise<User> {
   try {
-    const res = User.create(user);
+    const res = await User.create(user);
     return res;
   } catch (err) {
     console.log(err)
