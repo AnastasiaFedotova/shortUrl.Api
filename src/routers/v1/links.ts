@@ -1,24 +1,23 @@
 import { Router } from "express";
-import Links from "../../interface/links";
+import { Links } from "../../models/links";
 import service from "./../../service/shortLinkService";
 const linksApi = Router();
 import getRandomUrl from "./../../utils/getRandomUrl";
 
 linksApi.get("/", async (_req, res) => {
   const shortLinksList = await service.read();
-
   res.json(shortLinksList);
-})
+});
 
 linksApi.post("/", async (req, res) => {
   const { body } = req;
   const shortUrlLength = 5;
-  const newLink: Links = new Links({
+  const newLink: Links = {
     original_url: body.url,
     short_url: getRandomUrl(shortUrlLength),
-    user_id: body.id,
+    user_id: body.userId,
     view_count: null
-  });
+  };
 
   const shortLink = await service.add(newLink);
 

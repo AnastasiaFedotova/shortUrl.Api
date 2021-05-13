@@ -1,14 +1,18 @@
-import Links from "./../interface/links";
+import Link, { Links } from "../models/links";
 
 async function add(link: Links): Promise<Links> {
-  const res = await Links.create(link);
-
-  return res;
+  try {
+    const res = await Link.create(link);
+    return res;
+  } catch (err) {
+    console.log(err)
+  }
 }
 
-async function read(): Promise<Array<Links>> {
+async function read(): Promise<Array<Link>> {
   try {
-    return await Links.findAll();
+    const res = await Link.findAll();
+    return res;
   } catch (err) {
     console.log(err)
   }

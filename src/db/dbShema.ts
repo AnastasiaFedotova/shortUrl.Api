@@ -1,6 +1,6 @@
 import * as Sequelize from "sequelize";
-import Links from "./../interface/links";
-import Users from "./../interface/users";
+import Links from "../models/links";
+import Users from "../models/users";
 import config from "../../configs/appconfig";
 
 const sequelize = new Sequelize.Sequelize(config.db_name, config.user, config.password, {

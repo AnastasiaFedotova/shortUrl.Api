@@ -1,12 +1,21 @@
-import Users from "./../interface/users";
+import User, { Users } from "../models/users";
 
-async function read(): Promise<Array<Users>> {
-  return await Users.findAll();
+async function read(): Promise<Array<User>> {
+  try {
+    const res = await User.findAll();
+    return res;
+  } catch (err) {
+    console.log(err)
+  }
 }
 
-function add(user: Users): Promise<Users> {
-  const res = Users.create(user);
-  return res;
+function add(user: Users): Promise<User> {
+  try {
+    const res = User.create(user);
+    return res;
+  } catch (err) {
+    console.log(err)
+  }
 }
 
 const userService = {
