@@ -1,8 +1,8 @@
 import { Router } from "express";
 import { Links } from "../../models/links";
 import service from "./../../service/shortLinkService";
-const linksApi = Router();
 import getRandomUrl from "./../../utils/getRandomUrl";
+const linksApi = Router();
 
 linksApi.get("/", async (_req, res) => {
   const shortLinksList = await service.read();
