@@ -80,7 +80,7 @@ Session.init(
   },
   {
     sequelize,
-    tableName: 'users',
+    tableName: 'sessions',
   }
 )
 
