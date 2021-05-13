@@ -2,12 +2,12 @@ import { Model } from 'sequelize';
 
 export default class Session extends Model {
   id: string;
-  login: string;
-  password: string
+  date: Date;
+  user_id: string;
 }
 
 export interface Sessions {
   id: string;
-  date: string;
+  date: Date;
   user_id: string;
 }

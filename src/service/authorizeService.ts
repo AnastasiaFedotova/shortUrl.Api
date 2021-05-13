@@ -1,5 +1,6 @@
+import { v4 } from "uuid";
 import User from "../models/users";
-
+import Session, { Sessions } from "../models/sessions";
 async function logIn(login: string, password: string): Promise<string> {
   try {
     const user = await User.findOne({
@@ -21,8 +22,24 @@ async function logIn(login: string, password: string): Promise<string> {
   }
 }
 
+async function create(id: string): Promise<string> {
+  try {
+    const session: Sessions = {
+      id: v4(),
+      date: new Date(),
+      user_id: id
+    }
+    const newSession = await Session.create(session);
+
+    return newSession.id;
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 const service = {
-  logIn
+  logIn,
+  create
 }
 
 export default service;
