@@ -1,7 +1,8 @@
 import * as Sequelize from "sequelize";
-import Links from "../models/links";
-import Users from "../models/users";
+import Link from "../models/links";
+import User from "../models/users";
 import config from "../../configs/appconfig";
+import Session from "./../models/sessions";
 
 const sequelize = new Sequelize.Sequelize(config.db_name, config.user, config.password, {
   dialect: "postgres",
@@ -10,7 +11,7 @@ const sequelize = new Sequelize.Sequelize(config.db_name, config.user, config.pa
   }
 });
 
-Links.init(
+Link.init(
   {
     id: {
       type: Sequelize.INTEGER,
@@ -39,7 +40,7 @@ Links.init(
   }
 );
 
-Users.init(
+User.init(
   {
     id: {
       type: Sequelize.STRING,
@@ -60,6 +61,28 @@ Users.init(
     tableName: 'users',
   }
 );
+
+Session.init(
+  {
+    id: {
+      type: Sequelize.STRING,
+      primaryKey: true,
+      allowNull: false
+    },
+    date: {
+      type: Sequelize.DataTypes.DATE,
+      allowNull: false
+    },
+    user_id: {
+      type: Sequelize.STRING,
+      allowNull: false
+    }
+  },
+  {
+    sequelize,
+    tableName: 'users',
+  }
+)
 
 sequelize.sync().then(result => {
   console.log(result);
