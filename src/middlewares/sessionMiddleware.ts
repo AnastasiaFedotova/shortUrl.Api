@@ -1,6 +1,8 @@
-import { authorizeService } from './../service/authorizeService'
+import express from 'express';
+import { customRequest } from './../interfaces/customRequest'
+import { authorizeService } from './../service/authorizeService';
 
-const session = async function (req, _res, next): Promise<void> {
+const session = async function (req: customRequest, _res: express.Response, next: express.NextFunction): Promise<void> {
   try {
     const sessionId = req.cookies.session;
     const session = await authorizeService.find(sessionId)
