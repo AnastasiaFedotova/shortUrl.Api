@@ -23,4 +23,8 @@ authorizeApi.post("/", async (req, res) => {
   }
 });
 
+authorizeApi.get("/", async (req, res) => {
+  res.json(req.cookies?.session ? true : false).status(204);
+});
+
 export default authorizeApi;
