@@ -16,9 +16,4 @@ const session = async function (req, _res, next): Promise<void> {
   }
 }
 
-//найти юзера из сессии айди
-
-//добавить в реквест. req.auts.userId
-//установить время жизни сессии
-
 export default session;
