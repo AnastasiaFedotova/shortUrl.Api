@@ -1,4 +1,5 @@
-import User, { Users } from "../models/users";
+import User from "../models/users";
+import { UsersInterface } from "./../interfaces/users";
 
 async function read(): Promise<Array<User>> {
   try {
@@ -9,7 +10,7 @@ async function read(): Promise<Array<User>> {
   }
 }
 
-async function add(user: Users): Promise<User> {
+async function add(user: UsersInterface): Promise<User> {
   try {
     const res = await User.create(user);
     return res;

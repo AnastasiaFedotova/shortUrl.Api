@@ -1,6 +1,7 @@
 import { v4 } from "uuid";
 import User from "../models/users";
-import Session, { Sessions } from "../models/sessions";
+import Session from "../models/sessions";
+import { SessionsInterface } from "./../interfaces/sessions";
 
 async function logIn(login: string, password: string): Promise<string> {
   try {
@@ -27,7 +28,7 @@ async function create(userId: string): Promise<string> {
   try {
     const timeLife = new Date();
     timeLife.setDate(timeLife.getDate() + 1);
-    const session: Sessions = {
+    const session: SessionsInterface = {
       id: v4(),
       date: timeLife,
       user_id: userId
