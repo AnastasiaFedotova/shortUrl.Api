@@ -6,7 +6,9 @@ import routerV1api from './routers/v1/v1api';
 import authorizeApi from './routers/authorizeRouter/authorizeApi';
 import shortLinksRouter from './routers/shortLinksRouter/router';
 import session from './middlewares/sessionMiddleware';
-import './db/dbShema';
+import './db/linkShema';
+import './db/userShema';
+import './db/sessionShema';
 
 const app = express();
 const port = process.env.PORT || 3000;
