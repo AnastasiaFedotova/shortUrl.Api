@@ -1,11 +1,11 @@
 import { Router } from "express";
 import { v4 } from "uuid";
 import { Users } from "../../models/users";
-import service from "./../../service/usersService";
+import { userService } from "./../../service/usersService";
 const usersApi = Router();
 
 usersApi.get("/", async (_req, res) => {
-  const usersList = await service.read();
+  const usersList = await userService.read();
   res.json(usersList);
 });
 
@@ -16,7 +16,7 @@ usersApi.post("/", async (req, res) => {
     login: body.login,
     password: body.password
   }
-  const user = await service.add(newUser);
+  const user = await userService.add(newUser);
 
   res.json(user);
 });

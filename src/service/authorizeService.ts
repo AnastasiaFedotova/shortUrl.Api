@@ -70,11 +70,9 @@ async function remove(sessionId: string): Promise<null> {
   }
 }
 
-const service = {
+export const authorizeService = {
   logIn,
   create,
   find,
   remove
 }
-
-export default service;

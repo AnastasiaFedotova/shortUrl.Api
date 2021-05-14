@@ -1,11 +1,11 @@
 import { Router } from "express";
 import { Links } from "../../models/links";
-import service from "./../../service/shortLinkService";
+import { urlService } from "./../../service/shortLinkService";
 import getRandomUrl from "./../../utils/getRandomUrl";
 const linksApi = Router();
 
 linksApi.get("/", async (_req, res) => {
-  const shortLinksList = await service.read();
+  const shortLinksList = await urlService.read();
   res.json(shortLinksList);
 });
 
@@ -19,7 +19,7 @@ linksApi.post("/", async (req, res) => {
     view_count: null
   };
 
-  const shortLink = await service.add(newLink);
+  const shortLink = await urlService.add(newLink);
 
   res.json(shortLink);
 })

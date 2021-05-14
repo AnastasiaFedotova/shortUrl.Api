@@ -18,9 +18,7 @@ async function read(): Promise<Array<Link>> {
   }
 }
 
-const urlService = {
+export const urlService = {
   add,
   read
 };
-
-export default urlService;

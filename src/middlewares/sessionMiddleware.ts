@@ -1,14 +1,14 @@
-import service from './../service/authorizeService'
+import { authorizeService } from './../service/authorizeService'
 
 const session = async function (req, _res, next): Promise<void> {
   try {
     const sessionId = req.cookies.session;
-    const session = await service.find(sessionId)
+    const session = await authorizeService.find(sessionId)
     const userId = session.user_id;
     const date = new Date();
 
     if (date > session.date) {
-      await service.remove(sessionId);
+      await authorizeService.remove(sessionId);
       throw new Error('Session timed out');
     }
 
@@ -17,10 +17,11 @@ const session = async function (req, _res, next): Promise<void> {
     };
 
     console.log('LOGGED');
-    next();
   } catch (err) {
     console.log(err);
   }
+
+  next();
 }
 
 export default session;

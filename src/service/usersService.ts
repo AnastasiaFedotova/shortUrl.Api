@@ -18,8 +18,7 @@ async function add(user: Users): Promise<User> {
   }
 }
 
-const userService = {
+export const userService = {
   add,
   read
 };
-export default userService;
