@@ -2,10 +2,16 @@ import express from 'express';
 import { customRequest } from './../interfaces/customRequest'
 import { authorizeService } from './../service/authorizeService';
 
-const session = async function (req: customRequest, _res: express.Response, next: express.NextFunction): Promise<void> {
+const session = async function (req: customRequest, res, next: express.NextFunction): Promise<void> {
   try {
     const sessionId = req.cookies.session;
     const session = await authorizeService.find(sessionId)
+
+    if (!session) {
+      res.clearCookie('session');
+      throw Error('Session not found');
+    }
+
     const userId = session.user_id;
     const date = new Date();
 
