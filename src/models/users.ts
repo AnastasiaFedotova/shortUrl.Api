@@ -5,9 +5,3 @@ export default class User extends Model {
   login: string;
   password: string
 }
-
-export interface Users {
-  id: string;
-  login: string;
-  password: string
-}
