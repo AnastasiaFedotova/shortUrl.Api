@@ -63,7 +63,7 @@ async function remove(sessionId: string): Promise<null> {
   try {
     await Session.destroy({
       where: { id: sessionId }
-    })
+    });
 
     return null;
   } catch (err) {

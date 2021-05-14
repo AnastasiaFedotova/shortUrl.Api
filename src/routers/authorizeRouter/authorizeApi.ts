@@ -17,14 +17,24 @@ authorizeApi.post("/", async (req, res) => {
       maxAge: dayInMs
     });
 
-    res.status(204).send("");
+    res.json(true).status(204);
   } else {
     res.status(404).send("Error");
   }
 });
 
 authorizeApi.get("/", async (req, res) => {
-  res.json(req.cookies?.session ? true : false).status(204);
+  const sessionId = req.cookies.session;
+  const session = authorizeService.find(sessionId);
+  res.json(session ? true : false).status(200);
+});
+
+authorizeApi.delete("/", async (req, res) => {
+  const sessionId = req.cookies.session;
+
+  await authorizeService.remove(sessionId);
+
+  res.status(200);
 });
 
 export default authorizeApi;
