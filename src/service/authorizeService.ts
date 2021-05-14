@@ -25,9 +25,11 @@ async function logIn(login: string, password: string): Promise<string> {
 
 async function create(userId: string): Promise<string> {
   try {
+    const timeLife = new Date();
+    timeLife.setDate(timeLife.getDate() + 1);
     const session: Sessions = {
       id: v4(),
-      date: new Date(),
+      date: timeLife,
       user_id: userId
     }
     const newSession = await Session.create(session);
@@ -38,7 +40,7 @@ async function create(userId: string): Promise<string> {
   }
 }
 
-async function findUserId(sessionId: string): Promise<string> {
+async function find(sessionId: string): Promise<Session> {
   try {
     const session = await Session.findOne({
       where: {
@@ -47,7 +49,7 @@ async function findUserId(sessionId: string): Promise<string> {
     });
 
     if (session) {
-      return session.user_id
+      return session;
     }
 
     throw new Error("Not found");
@@ -56,10 +58,23 @@ async function findUserId(sessionId: string): Promise<string> {
   }
 }
 
+async function remove(sessionId: string): Promise<null> {
+  try {
+    await Session.destroy({
+      where: { id: sessionId }
+    })
+
+    return null;
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 const service = {
   logIn,
   create,
-  findUserId
+  find,
+  remove
 }
 
 export default service;
