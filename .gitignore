@@ -2,4 +2,4 @@ package-lock.json
 node_modules/
 dist/
 .vscode
-config/appconfig.ts
+appconfig.ts
