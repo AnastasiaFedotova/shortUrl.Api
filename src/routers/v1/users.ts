@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { v4 } from "uuid";
-import { Users } from "../../models/users";
+import { UsersInterface } from "./../../interfaces/users";
 import { userService } from "./../../service/usersService";
 const usersApi = Router();
 
@@ -11,7 +11,7 @@ usersApi.get("/", async (_req, res) => {
 
 usersApi.post("/", async (req, res) => {
   const { body } = req;
-  const newUser: Users = {
+  const newUser: UsersInterface = {
     id: v4(),
     login: body.login,
     password: body.password
