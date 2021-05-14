@@ -2,6 +2,7 @@ import { Router } from "express";
 import { v4 } from "uuid";
 import { UsersInterface } from "./../../interfaces/users";
 import { userService } from "./../../service/usersService";
+
 const usersApi = Router();
 
 usersApi.get("/", async (_req, res) => {

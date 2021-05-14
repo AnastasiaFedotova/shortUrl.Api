@@ -1,5 +1,6 @@
 import { Router } from "express";
 import Link from "../../models/links";
+
 const shortLinksRouter = Router();
 
 shortLinksRouter.get("/:link", async (req, res) => {

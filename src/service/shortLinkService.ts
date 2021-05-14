@@ -1,5 +1,6 @@
 import Link from "../models/links";
 import { LinksInterface } from "./../interfaces/links";
+
 async function add(link: LinksInterface): Promise<LinksInterface> {
   try {
     const res = await Link.create(link);

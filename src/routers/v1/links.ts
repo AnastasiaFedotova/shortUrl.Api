@@ -3,6 +3,7 @@ import { customRequest } from "../../interfaces/customRequest";
 import { LinksInterface } from "./../../interfaces/links";
 import { urlService } from "./../../service/shortLinkService";
 import getRandomUrl from "./../../utils/getRandomUrl";
+
 const linksApi = Router();
 
 linksApi.get("/", async (_req, res) => {
