@@ -25,7 +25,7 @@ authorizeApi.post("/", async (req, res) => {
 
 authorizeApi.get("/", async (req, res) => {
   const sessionId = req.cookies.session;
-  const session = authorizeService.find(sessionId);
+  const session = await authorizeService.find(sessionId);
   res.json(session ? true : false).status(200);
 });
 
