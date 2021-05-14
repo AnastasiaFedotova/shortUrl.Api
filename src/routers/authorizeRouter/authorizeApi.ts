@@ -1,5 +1,6 @@
 import { Router } from "express";
 import service from "./../../service/authorizeService";
+
 const authorizeApi = Router();
 
 authorizeApi.post("/", async (req, res) => {
@@ -10,7 +11,13 @@ authorizeApi.post("/", async (req, res) => {
 
   if (userId) {
     const sessionId = await service.create(userId);
-    res.json(sessionId);
+    const dayInMs = 86400000;
+
+    res.cookie('session', sessionId, {
+      maxAge: dayInMs
+    });
+
+    res.status(204).send("");
   } else {
     res.status(404).send("Error");
   }
