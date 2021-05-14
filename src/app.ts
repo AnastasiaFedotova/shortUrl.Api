@@ -13,7 +13,7 @@ import './db/sessionShema';
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(cookieParser('secret'));
+app.use(cookieParser());
 
 const whitelist = ['http://localhost:4200', 'https://localhost:4200'];
 
