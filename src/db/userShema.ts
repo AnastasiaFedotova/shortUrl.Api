@@ -5,9 +5,9 @@ import User from "../models/users";
 User.init(
   {
     id: {
-      type: Sequelize.STRING,
+      type: Sequelize.INTEGER,
       primaryKey: true,
-      allowNull: false
+      autoIncrement: true
     },
     login: {
       type: Sequelize.STRING,

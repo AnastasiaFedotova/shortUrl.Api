@@ -1,5 +1,4 @@
 import { Router } from "express";
-import { v4 } from "uuid";
 import { UsersInterface } from "./../../interfaces/users";
 import { userService } from "./../../service/usersService";
 
@@ -13,7 +12,6 @@ usersApi.get("/", async (_req, res) => {
 usersApi.post("/", async (req, res) => {
   const { body } = req;
   const newUser: UsersInterface = {
-    id: v4(),
     login: body.login,
     password: body.password
   }
