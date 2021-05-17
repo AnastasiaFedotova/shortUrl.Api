@@ -1,8 +1,6 @@
 import { Router } from "express";
 import { customRequest } from "../../interfaces/customRequest";
-import { LinksInterface } from "./../../interfaces/links";
 import { urlService } from "./../../service/shortLinkService";
-import getRandomUrl from "./../../utils/getRandomUrl";
 
 const linksApi = Router();
 
@@ -20,15 +18,8 @@ linksApi.get("/userList", async (req: customRequest, res) => {
 linksApi.post("/", async (req: customRequest, res) => {
   const { body } = req;
   const userId = req.auts?.userId;
-  const shortUrlLength = 5;
-  const newLink: LinksInterface = {
-    original_url: body.url,
-    short_url: getRandomUrl(shortUrlLength),
-    user_id: userId || null,
-    view_count: null
-  };
 
-  const shortLink = await urlService.add(newLink);
+  const shortLink = await urlService.add(body, userId);
 
   res.json(shortLink);
 });

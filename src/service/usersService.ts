@@ -12,7 +12,11 @@ async function read(): Promise<Array<User>> {
 
 async function add(user: UsersInterface): Promise<User> {
   try {
-    const res = await User.create(user);
+    const newUser: UsersInterface = {
+      login: user.login,
+      password: user.password
+    }
+    const res = await User.create(newUser);
     return res;
   } catch (err) {
     console.log(err)

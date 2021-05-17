@@ -1,9 +1,18 @@
 import Link from "../models/links";
 import { LinksInterface } from "./../interfaces/links";
+import getRandomUrl from "./../utils/getRandomUrl";
 
-async function add(link: LinksInterface): Promise<LinksInterface> {
+async function add(link: { url: string; }, userId: string): Promise<LinksInterface> {
   try {
-    const res = await Link.create(link);
+    const shortUrlLength = 5;
+    const newLink: LinksInterface = {
+      original_url: link.url,
+      short_url: getRandomUrl(shortUrlLength),
+      user_id: userId || null,
+      view_count: null
+    };
+
+    const res = await Link.create(newLink);
     return res;
   } catch (err) {
     console.log(err)
