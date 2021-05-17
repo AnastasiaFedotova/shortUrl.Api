@@ -5,7 +5,7 @@ import { urlService } from "./../../service/shortLinkService";
 const linksApi = Router();
 
 linksApi.get("/", async (_req, res) => {
-  const shortLinksList = await urlService.read();
+  const shortLinksList = await urlService.readLinksList();
   res.json(shortLinksList);
 });
 
@@ -19,7 +19,7 @@ linksApi.post("/", async (req: customRequest, res) => {
   const { body } = req;
   const userId = req.auts?.userId;
 
-  const shortLink = await urlService.add(body, userId);
+  const shortLink = await urlService.addLink(body, userId);
 
   res.json(shortLink);
 });

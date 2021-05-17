@@ -2,7 +2,7 @@ import Link from "../models/links";
 import { LinksInterface } from "./../interfaces/links";
 import getRandomUrl from "./../utils/getRandomUrl";
 
-async function add(link: { url: string; }, userId: string): Promise<LinksInterface> {
+async function addLink(link: { url: string; }, userId: string): Promise<LinksInterface> {
   try {
     const shortUrlLength = 5;
     const newLink: LinksInterface = {
@@ -19,7 +19,7 @@ async function add(link: { url: string; }, userId: string): Promise<LinksInterfa
   }
 }
 
-async function read(): Promise<Array<Link>> {
+async function readLinksList(): Promise<Array<Link>> {
   try {
     const res = await Link.findAll();
     return res;
@@ -52,8 +52,8 @@ async function addViews(shortlink: string): Promise<void> {
 }
 
 export const urlService = {
-  add,
-  read,
+  addLink,
+  readLinksList,
   readUserList,
   addViews
 };
