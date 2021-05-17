@@ -1,3 +1,4 @@
+import bcrypt from "bcrypt";
 import User from "../models/users";
 import { UsersInterface } from "./../interfaces/users";
 
@@ -10,14 +11,29 @@ async function read(): Promise<Array<User>> {
   }
 }
 
-async function add(user: UsersInterface): Promise<User> {
+async function add(user: UsersInterface): Promise<UsersInterface> {
   try {
+    const saltRounds = 10;
+    const passwordToSave = user.password;
     const newUser: UsersInterface = {
       login: user.login,
       password: user.password
-    }
-    const res = await User.create(newUser);
-    return res;
+    };
+
+    bcrypt.genSalt(saltRounds, (err, salt) => {
+      if (err) console.log(err);
+      bcrypt.hash(passwordToSave, salt, (err, hash) => {
+        if (err) console.log(err);
+        const userToSave: UsersInterface = {
+          login: user.login,
+          password: hash
+        }
+
+        User.create(userToSave);
+      });
+    });
+
+    return newUser;
   } catch (err) {
     console.log(err)
   }

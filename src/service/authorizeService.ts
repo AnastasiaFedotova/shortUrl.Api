@@ -1,4 +1,5 @@
 import { v4 } from "uuid";
+import bcrypt from "bcrypt";
 import User from "../models/users";
 import Session from "../models/sessions";
 import { SessionsInterface } from "./../interfaces/sessions";
@@ -14,7 +15,9 @@ async function logIn(login: string, password: string): Promise<string> {
       throw new Error("User not found");
     }
 
-    if (user.password === password) {
+    const isSamePsws = await bcrypt.compare(password, user.password);
+
+    if (isSamePsws) {
       return user.id;
     }
 
