@@ -52,8 +52,8 @@ async function readUserList(userId: string): Promise<Array<Link>> {
 async function addViews(shortlink: string): Promise<void> {
   try {
     const link = await Link.findAll({ where: { short_url: shortlink }, raw: true });
-    let views = link[0].view_count;
-    await Link.update({ view_count: views ? ++views : 1 }, { where: { short_url: shortlink } });
+    const views = Number(link[0].view_count) + 1;
+    await Link.update({ view_count: views }, { where: { short_url: shortlink } });
   } catch (err) {
     console.log(err)
   }
