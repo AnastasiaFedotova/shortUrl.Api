@@ -7,8 +7,8 @@ const shortLinksRouter = Router();
 shortLinksRouter.get("/:link", async (req, res) => {
   try {
     const link = req.params.link;
-    await urlService.addViews(link);
-    const data = await Link.findAll({ where: { short_url: link }, raw: true });
+    const promiseResult = await Promise.all([urlService.addViews(link), Link.findAll({ where: { short_url: link }, raw: true })])
+    const data = promiseResult[1];
     res.redirect(data[0].original_url)
   } catch (err) {
     console.log(err);
