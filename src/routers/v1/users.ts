@@ -10,9 +10,9 @@ usersApi.get("/", async (_req, res) => {
 
 usersApi.post("/", async (req, res) => {
   const { body } = req;
-  const user = await userService.add(body);
+  await userService.add(body);
 
-  res.json(user);
+  res.status(200).json("ok");
 });
 
 export default usersApi;
