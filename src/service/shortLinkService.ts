@@ -5,9 +5,17 @@ import getRandomUrl from "./../utils/getRandomUrl";
 async function addLink(link: { url: string; }, userId: string): Promise<LinksInterface> {
   try {
     const shortUrlLength = 5;
+    let password: string = getRandomUrl(shortUrlLength);
+    let isUnique: boolean = await findLinkByShortUrl(password);
+
+    while (isUnique) {
+      password = getRandomUrl(shortUrlLength);
+      if (await findLinkByShortUrl(password)) isUnique = false;
+    }
+
     const newLink: LinksInterface = {
       original_url: link.url,
-      short_url: getRandomUrl(shortUrlLength),
+      short_url: password,
       user_id: userId || null,
       view_count: null
     };
@@ -51,9 +59,20 @@ async function addViews(shortlink: string): Promise<void> {
   }
 }
 
+async function findLinkByShortUrl(shortUrl: string): Promise<boolean> {
+  try {
+    const link = await Link.findOne({ where: { short_url: shortUrl }, raw: true });
+    if (link) return true;
+    return false;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 export const urlService = {
   addLink,
   readLinksList,
   readUserList,
-  addViews
+  addViews,
+  findLinkByShortUrl
 };
