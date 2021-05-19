@@ -4,3 +4,8 @@ export interface LinksInterface {
   user_id: string | null;
   view_count: number | null;
 }
+
+export interface CustomLink {
+  url: string,
+  customUrl: string
+}

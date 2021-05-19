@@ -1,5 +1,5 @@
 import Link from "../models/links";
-import { LinksInterface } from "./../interfaces/links";
+import { CustomLink, LinksInterface } from "./../interfaces/links";
 import getRandomUrl from "./../utils/getRandomUrl";
 
 async function addLink(link: { url: string; }, userId: string): Promise<LinksInterface> {
@@ -69,10 +69,24 @@ async function findLinkByShortUrl(shortUrl: string): Promise<boolean> {
   }
 }
 
+async function renameLink(link: CustomLink): Promise<string> {
+  try {
+    const isUniqueUrl = findLinkByShortUrl(link.customUrl);
+
+    if (isUniqueUrl) throw new Error("not the unique url");
+
+    await Link.update({ short_url: link.customUrl }, { where: { original_url: link.url } });
+    return link.customUrl;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 export const urlService = {
   addLink,
   readLinksList,
   readUserList,
   addViews,
-  findLinkByShortUrl
+  findLinkByShortUrl,
+  renameLink
 };

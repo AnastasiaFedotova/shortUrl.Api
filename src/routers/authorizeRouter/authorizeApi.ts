@@ -34,7 +34,7 @@ authorizeApi.delete("/", async (req, res) => {
 
   await authorizeService.remove(sessionId);
 
-  res.status(200);
+  res.status(200).json('deleted');
 });
 
 export default authorizeApi;

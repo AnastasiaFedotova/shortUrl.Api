@@ -24,4 +24,12 @@ linksApi.post("/", async (req: customRequest, res) => {
   res.json(shortLink);
 });
 
+linksApi.put("/", async (req: customRequest, res) => {
+  const { body } = req;
+
+  const shortLink = await urlService.renameLink(body);
+
+  res.json(shortLink);
+});
+
 export default linksApi;
