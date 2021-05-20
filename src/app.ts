@@ -1,6 +1,5 @@
 import express from 'express';
 import cors from 'cors';
-import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import routerV1api from './routers/v1/v1api';
 import authorizeApi from './routers/authorizeRouter/authorizeApi';
@@ -29,7 +28,10 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.use(bodyParser.json({ type: 'application/json' }));
+app.use(express.json());
+app.use(express.urlencoded({
+  extended: true
+}));
 app.use(session);
 app.use('/api/v1', routerV1api);
 app.use('/api/authorize', authorizeApi);
