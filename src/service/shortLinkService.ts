@@ -10,7 +10,8 @@ async function addLink(link: { url: string; }, userId: string): Promise<LinksInt
 
     while (isUnique) {
       randomUrl = getRandomUrl(shortUrlLength);
-      if (await findLinkByShortUrl(randomUrl)) isUnique = false;
+      const checkedLink = await findLinkByShortUrl(randomUrl);
+      if (checkedLink) isUnique = false;
     }
 
     const newLink: LinksInterface = {
