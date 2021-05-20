@@ -6,6 +6,6 @@ export interface LinksInterface {
 }
 
 export interface CustomLink {
-  url: string,
+  shortUrl: string,
   customUrl: string
 }

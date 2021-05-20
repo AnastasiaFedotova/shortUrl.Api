@@ -71,11 +71,11 @@ async function findLinkByShortUrl(shortUrl: string): Promise<boolean> {
 
 async function renameLink(link: CustomLink): Promise<string> {
   try {
-    const isUniqueUrl = findLinkByShortUrl(link.customUrl);
+    const isUniqueUrl = await findLinkByShortUrl(link.customUrl);
 
     if (isUniqueUrl) throw new Error("not the unique url");
 
-    await Link.update({ short_url: link.customUrl }, { where: { original_url: link.url } });
+    await Link.update({ short_url: link.customUrl }, { where: { short_url: link.shortUrl } });
     return link.customUrl;
   } catch (err) {
     console.log(err);
