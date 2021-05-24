@@ -15,25 +15,15 @@ async function add(user: UsersInterface): Promise<UsersInterface> {
   try {
     const saltRounds = 10;
     const passwordToSave = user.password;
-    const newUser: UsersInterface = {
+    const salt = await bcrypt.genSalt(saltRounds);
+    const hash = await bcrypt.hash(passwordToSave, salt);
+    const userToSave: UsersInterface = {
       login: user.login,
-      password: user.password
-    };
+      password: hash
+    }
+    await User.create(userToSave);
 
-    bcrypt.genSalt(saltRounds, (err, salt) => {
-      if (err) console.log(err);
-      bcrypt.hash(passwordToSave, salt, (err, hash) => {
-        if (err) console.log(err);
-        const userToSave: UsersInterface = {
-          login: user.login,
-          password: hash
-        }
-
-        User.create(userToSave);
-      });
-    });
-
-    return newUser;
+    return userToSave;
   } catch (err) {
     console.log(err)
   }

@@ -26,7 +26,7 @@ usersApi.post("/", async (req, res) => {
       maxAge: dayInMs
     });
 
-    res.status(200).json("ok");
+    res.status(200).json(true);
   }
 });
 
