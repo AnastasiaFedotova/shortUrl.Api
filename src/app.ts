@@ -3,6 +3,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import routerV1api from './routers/v1/v1api';
 import authorizeApi from './routers/authorizeRouter/authorizeApi';
+import commentsApi from './routers/commentsRouter/commentsApi';
 import shortLinksRouter from './routers/shortLinksRouter/router';
 import session from './middlewares/sessionMiddleware';
 import './db/linkShema';
@@ -35,6 +36,7 @@ app.use(express.urlencoded({
 app.use(session);
 app.use('/api/v1', routerV1api);
 app.use('/api/authorize', authorizeApi);
+app.use('/api/comments', commentsApi);
 app.use('/', shortLinksRouter);
 app.listen(port);
 console.log("server started on port");
