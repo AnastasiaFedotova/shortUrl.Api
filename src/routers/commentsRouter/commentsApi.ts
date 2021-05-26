@@ -19,8 +19,8 @@ commentsApi.get("/:linksId", async (req, res) => {
 commentsApi.post("/", async (req, res) => {
   const { body } = req;
   const message = body.message;
-  const linkId = body.user_id;
-  const userId = body.link_id;
+  const linkId = body.link_id;
+  const userId = body.user_id;
 
   const newComment = await commentsService.addComment(message, userId, linkId);
   if (newComment) res.json(newComment.link_id).status(204);

@@ -26,7 +26,15 @@ authorizeApi.post("/", async (req, res) => {
 authorizeApi.get("/", async (req, res) => {
   const sessionId = req.cookies.session;
   const session = await authorizeService.find(sessionId);
-  res.json(session ? true : false).status(200);
+  if (session) res.json(session.user_id).status(200);
+  else res.status(404).send("Error");
+});
+
+authorizeApi.get("/user", async (req, res) => {
+  const sessionId = req.cookies.session;
+  const userId = await authorizeService.findAuthUserId(sessionId);
+  if (userId) res.json(userId).status(200);
+  else res.status(404).send("Error");
 });
 
 authorizeApi.delete("/", async (req, res) => {

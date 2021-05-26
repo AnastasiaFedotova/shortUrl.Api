@@ -74,9 +74,24 @@ async function remove(sessionId: string): Promise<null> {
   }
 }
 
+async function findAuthUserId(sessionId: string): Promise<string> {
+  try {
+    const session = await find(sessionId)
+
+    if (session) {
+      return session.user_id;
+    }
+
+    throw new Error("Not found");
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 export const authorizeService = {
   logIn,
   create,
   find,
-  remove
+  remove,
+  findAuthUserId
 }
