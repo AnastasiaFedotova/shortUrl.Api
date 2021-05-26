@@ -25,11 +25,11 @@ async function addComment(message: string, userId: string, linkId: string): Prom
   }
 }
 
-async function findCommentsByLinksId(userId: string): Promise<Comment[]> {
+async function findCommentsByLinksId(linkId: string): Promise<Comment[]> {
   try {
     const commentsList = await Comment.findAll({
       where: {
-        user_id: userId
+        link_id: linkId
       }, raw: true
     });
 

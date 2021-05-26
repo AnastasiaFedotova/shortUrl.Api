@@ -11,6 +11,25 @@ async function read(): Promise<Array<User>> {
   }
 }
 
+async function readUserById(userId: string): Promise<User> {
+  try {
+    const user = await User.findOne({
+      where: {
+        id: userId
+      }, raw: true
+    });
+
+    if (user) {
+      return user;
+    }
+
+    throw new Error("Not found");
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+
 async function add(user: UsersInterface): Promise<UsersInterface> {
   try {
     const saltRounds = 10;
@@ -31,5 +50,6 @@ async function add(user: UsersInterface): Promise<UsersInterface> {
 
 export const userService = {
   add,
-  read
+  read,
+  readUserById
 };

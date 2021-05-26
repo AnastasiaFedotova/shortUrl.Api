@@ -9,6 +9,12 @@ usersApi.get("/", async (_req, res) => {
   res.json(usersList);
 });
 
+usersApi.get("/:userId", async (req, res) => {
+  const userId = req.params.userId;
+  const user = await userService.readUserById(userId);
+  res.json(user);
+});
+
 usersApi.post("/", async (req, res) => {
   const { body } = req;
 
