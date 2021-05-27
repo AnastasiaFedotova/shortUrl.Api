@@ -31,8 +31,7 @@ async function findCommentsByLinksId(linkId: string): Promise<Comment[]> {
     const commentsList = await Comment.findAll({
       where: {
         link_id: linkId
-      }, include: [User],
-      raw: true
+      }, include: [User]
     });
 
     if (commentsList) {
