@@ -1,8 +1,9 @@
 import Comment from "../db/commentShema";
+import User from "../db/userShema";
 
 async function readCommentsLinks(): Promise<Comment[]> {
   try {
-    const comments = await Comment.findAll();
+    const comments = await Comment.findAll({ include: [User] });
     return comments;
   } catch (err) {
     console.log(err)
@@ -30,7 +31,8 @@ async function findCommentsByLinksId(linkId: string): Promise<Comment[]> {
     const commentsList = await Comment.findAll({
       where: {
         link_id: linkId
-      }, raw: true
+      }, include: [User],
+      raw: true
     });
 
     if (commentsList) {

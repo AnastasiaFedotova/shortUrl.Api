@@ -1,7 +1,7 @@
 import { Model } from 'sequelize';
 
 export default class User extends Model {
-  id: string | null;
+  id: string;
   login: string;
   password: string
 }

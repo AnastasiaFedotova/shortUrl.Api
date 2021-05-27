@@ -7,6 +7,7 @@ import commentsApi from './routers/commentsRouter/commentsApi';
 import shortLinksRouter from './routers/shortLinksRouter/router';
 import session from './middlewares/sessionMiddleware';
 import './db/linkShema';
+import './db/commentShema';
 import './db/userShema';
 import './db/sessionShema';
 

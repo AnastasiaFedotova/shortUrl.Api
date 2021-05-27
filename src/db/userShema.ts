@@ -1,7 +1,7 @@
 import * as Sequelize from "sequelize";
-import sequelize from './dbShema';
+import sequelize from "./dbShema";
 import User from "../models/users";
-
+import Comment from "./commentShema";
 User.init(
   {
     id: {
@@ -23,5 +23,8 @@ User.init(
     tableName: 'users',
   }
 );
+
+User.hasMany(Comment, { foreignKey: 'id' })
+Comment.belongsTo(User, { foreignKey: 'user_id' })
 
 export default User;
