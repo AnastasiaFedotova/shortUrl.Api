@@ -38,6 +38,12 @@ async function readLinksList(): Promise<Array<Link>> {
   }
 }
 
+async function readLinksListByTag(tag: string): Promise<Array<Link>> {
+  const links = await readLinksList();
+
+  return links.filter(link => link.tags.includes(tag));
+}
+
 async function readUserList(userId: string): Promise<Array<Link>> {
   try {
     const userList = await Link.findAll({
@@ -87,6 +93,7 @@ async function renameLink(link: CustomLink): Promise<string> {
 export const urlService = {
   addLink,
   readLinksList,
+  readLinksListByTag,
   readUserList,
   addViews,
   findLinkByShortUrl,

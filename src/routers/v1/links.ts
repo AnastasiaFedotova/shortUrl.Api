@@ -15,6 +15,12 @@ linksApi.get("/userList", async (req: customRequest, res) => {
   res.json(userList);
 });
 
+linksApi.get("/:tag", async (req, res) => {
+  const tagName = req.params.tag;
+  const shortLinksList = await urlService.readLinksListByTag(tagName);
+  res.json(shortLinksList);
+});
+
 linksApi.post("/", async (req: customRequest, res) => {
   const { body } = req;
   const userId = req.auts?.userId;
