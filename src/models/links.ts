@@ -6,4 +6,5 @@ export default class Link extends Model {
   short_url: string | null;
   user_id: string | null;
   view_count: number | null;
+  tags: string[];
 }

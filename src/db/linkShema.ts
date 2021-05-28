@@ -24,6 +24,10 @@ Link.init(
       type: Sequelize.INTEGER,
       allowNull: true
     },
+    tags: {
+      type: Sequelize.ARRAY(Sequelize.STRING),
+      allowNull: true
+    }
   },
   {
     sequelize,
