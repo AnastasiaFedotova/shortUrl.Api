@@ -18,7 +18,7 @@ Link.init(
       type: Sequelize.STRING
     },
     user_id: {
-      type: Sequelize.STRING,
+      type: Sequelize.INTEGER,
       allowNull: true
     },
     view_count: {
@@ -36,7 +36,7 @@ Link.init(
   }
 );
 
-Link.hasMany(Comment, { foreignKey: 'id' })
-Comment.belongsTo(Link, { foreignKey: 'link_id' })
+Link.hasMany(Comment, { foreignKey: 'link_id' })
+Comment.belongsTo(Link, { foreignKey: 'id' })
 
 export default Link;

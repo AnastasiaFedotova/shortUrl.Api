@@ -1,10 +1,10 @@
 import { v4 } from "uuid";
 import bcrypt from "bcrypt";
-import User from "../models/users";
+import User from "../db/userShema";
 import Session from "../models/sessions";
 import { SessionsInterface } from "./../interfaces/sessions";
 
-async function logIn(login: string, password: string): Promise<string> {
+async function logIn(login: string, password: string): Promise<number> {
   try {
     const user = await User.findOne({
       where: {
@@ -16,7 +16,6 @@ async function logIn(login: string, password: string): Promise<string> {
     }
 
     const isSamePsws = await bcrypt.compare(password, user.password);
-
     if (isSamePsws) {
       return user.id;
     }
@@ -27,7 +26,7 @@ async function logIn(login: string, password: string): Promise<string> {
   }
 }
 
-async function create(userId: string): Promise<string> {
+async function create(userId: number): Promise<string> {
   try {
     const timeLife = new Date();
     timeLife.setDate(timeLife.getDate() + 1);
@@ -74,7 +73,7 @@ async function remove(sessionId: string): Promise<null> {
   }
 }
 
-async function findAuthUserId(sessionId: string): Promise<string> {
+async function findAuthUserId(sessionId: string): Promise<number> {
   try {
     const session = await find(sessionId)
 

@@ -11,7 +11,7 @@ usersApi.get("/", async (_req, res) => {
 
 usersApi.get("/:userId", async (req, res) => {
   const userId = req.params.userId;
-  const user = await userService.readUserById(userId);
+  const user = await userService.readUserById(+userId);
   res.json(user);
 });
 
@@ -24,8 +24,8 @@ usersApi.post("/", async (req, res) => {
   const password = body.password;
   const userId = await authorizeService.logIn(login, password);
 
-  if (userId) {
-    const sessionId = await authorizeService.create(userId);
+  if (+userId) {
+    const sessionId = await authorizeService.create(+userId);
     const dayInMs = 86400000;
 
     res.cookie('session', sessionId, {

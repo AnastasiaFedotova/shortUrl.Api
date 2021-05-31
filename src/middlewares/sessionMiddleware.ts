@@ -21,7 +21,7 @@ const session = async function (req: customRequest, res, next: express.NextFunct
     }
 
     req.auts = {
-      userId: userId
+      userId: +userId
     };
 
     console.log('LOGGED');

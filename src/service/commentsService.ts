@@ -9,7 +9,7 @@ async function readCommentsLinks(): Promise<Comment[]> {
   }
 }
 
-async function addComment(message: string, userId: string, linkId: string): Promise<Comment> {
+async function addComment(message: string, userId: number, linkId: number): Promise<Comment> {
   try {
     const comment = {
       message: message,
@@ -23,7 +23,7 @@ async function addComment(message: string, userId: string, linkId: string): Prom
   }
 }
 
-async function findCommentsByLinksId(linkId: string): Promise<Comment[]> {
+async function findCommentsByLinksId(linkId: number): Promise<Comment[]> {
   try {
     const commentsList = await Comment.findAll({
       where: {

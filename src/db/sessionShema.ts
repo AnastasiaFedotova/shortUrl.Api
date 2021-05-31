@@ -14,7 +14,7 @@ Session.init(
       allowNull: false
     },
     user_id: {
-      type: Sequelize.STRING,
+      type: Sequelize.INTEGER,
       allowNull: false
     }
   },

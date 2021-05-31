@@ -11,7 +11,7 @@ linksApi.get("/", async (_req, res) => {
 
 linksApi.get("/userList", async (req: customRequest, res) => {
   const userId = req.auts?.userId;
-  const userList = await urlService.readUserList(userId);
+  const userList = await urlService.readUserList(+userId);
   res.json(userList);
 });
 
@@ -25,7 +25,7 @@ linksApi.post("/", async (req: customRequest, res) => {
   const { body } = req;
   const userId = req.auts?.userId;
 
-  const shortLink = await urlService.addLink(body, userId);
+  const shortLink = await urlService.addLink(body, +userId);
 
   res.json(shortLink);
 });

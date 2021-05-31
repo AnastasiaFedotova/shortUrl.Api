@@ -10,7 +10,7 @@ async function read(): Promise<Array<User>> {
   }
 }
 
-async function readUserById(userId: string): Promise<User> {
+async function readUserById(userId: number): Promise<User> {
   try {
     const user = await User.findOne({
       where: {

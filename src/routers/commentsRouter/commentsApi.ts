@@ -11,7 +11,7 @@ commentsApi.get("/", async (_req, res) => {
 
 commentsApi.get("/:linksId", async (req, res) => {
   const linksId = req.params.linksId;
-  const linksComments = await commentsService.findCommentsByLinksId(linksId);
+  const linksComments = await commentsService.findCommentsByLinksId(+linksId);
   if (linksComments) res.json(linksComments).status(204);
   else res.status(404).send("Error");
 });

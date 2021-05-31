@@ -2,7 +2,7 @@ import Link from "../models/links";
 import { CustomLink, LinksInterface } from "./../interfaces/links";
 import getRandomUrl from "./../utils/getRandomUrl";
 
-async function addLink(link: { url: string, tags: string[] }, userId: string): Promise<LinksInterface> {
+async function addLink(link: { url: string, tags: string[] }, userId: number): Promise<LinksInterface> {
   try {
     const shortUrlLength = 5;
     let randomUrl: string = getRandomUrl(shortUrlLength);
@@ -17,12 +17,12 @@ async function addLink(link: { url: string, tags: string[] }, userId: string): P
     const newLink: LinksInterface = {
       original_url: link.url,
       short_url: randomUrl,
-      user_id: userId || null,
+      user_id: +userId || null,
       view_count: null,
       tags: link.tags || null
     };
 
-    return Link.create(newLink);
+    return await Link.create(newLink);
   } catch (err) {
     console.log(err)
   }
@@ -39,13 +39,15 @@ async function readLinksList(): Promise<Array<Link>> {
 async function readLinksListByTag(tag: string): Promise<Array<Link>> {
   const links = await readLinksList();
 
-  return links.filter(link => link.tags.includes(tag));
+  return links.filter(link => {
+    return link.tags?.includes(tag)
+  });
 }
 
-async function readUserList(userId: string): Promise<Array<Link>> {
+async function readUserList(userId: number): Promise<Array<Link>> {
   try {
     return Link.findAll({
-      where: { user_id: userId },
+      where: { user_id: +userId },
       raw: true
     });
   } catch (err) {
