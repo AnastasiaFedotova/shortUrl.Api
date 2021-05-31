@@ -22,8 +22,7 @@ async function addLink(link: { url: string, tags: string[] }, userId: string): P
       tags: link.tags || null
     };
 
-    const res = await Link.create(newLink);
-    return res;
+    return Link.create(newLink);
   } catch (err) {
     console.log(err)
   }
@@ -31,8 +30,7 @@ async function addLink(link: { url: string, tags: string[] }, userId: string): P
 
 async function readLinksList(): Promise<Array<Link>> {
   try {
-    const res = await Link.findAll();
-    return res;
+    return Link.findAll();
   } catch (err) {
     console.log(err)
   }
@@ -46,12 +44,10 @@ async function readLinksListByTag(tag: string): Promise<Array<Link>> {
 
 async function readUserList(userId: string): Promise<Array<Link>> {
   try {
-    const userList = await Link.findAll({
+    return Link.findAll({
       where: { user_id: userId },
       raw: true
     });
-
-    return userList;
   } catch (err) {
     console.log(err)
   }

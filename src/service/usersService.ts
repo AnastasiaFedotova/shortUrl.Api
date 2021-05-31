@@ -4,8 +4,7 @@ import { UsersInterface } from "./../interfaces/users";
 
 async function read(): Promise<Array<User>> {
   try {
-    const res = await User.findAll();
-    return res;
+    return User.findAll();
   } catch (err) {
     console.log(err)
   }

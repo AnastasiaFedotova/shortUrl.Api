@@ -11,7 +11,7 @@ Link.init(
       autoIncrement: true
     },
     original_url: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING(500),
       allowNull: false
     },
     short_url: {
