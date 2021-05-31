@@ -1,6 +1,7 @@
 import * as Sequelize from "sequelize";
 import sequelize from './dbShema';
 import Link from "../models/links";
+import Comment from "./commentShema";
 
 Link.init(
   {
@@ -34,5 +35,8 @@ Link.init(
     tableName: 'links',
   }
 );
+
+Link.hasMany(Comment, { foreignKey: 'id' })
+Comment.belongsTo(Link, { foreignKey: 'link_id' })
 
 export default Link;

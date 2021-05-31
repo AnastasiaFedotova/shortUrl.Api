@@ -3,8 +3,7 @@ import User from "../db/userShema";
 
 async function readCommentsLinks(): Promise<Comment[]> {
   try {
-    const comments = await Comment.findAll({ include: [User] });
-    return comments;
+    return await Comment.findAll({ include: [User] });
   } catch (err) {
     console.log(err)
   }
@@ -18,9 +17,7 @@ async function addComment(message: string, userId: string, linkId: string): Prom
       user_id: userId
     }
 
-    const newComment: Comment = await Comment.create(comment);
-
-    return newComment;
+    return await Comment.create(comment);
   } catch (err) {
     console.log(err)
   }
