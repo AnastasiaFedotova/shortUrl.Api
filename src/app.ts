@@ -11,6 +11,8 @@ import './db/commentShema';
 import './db/linkShema';
 import './db/userShema';
 import './db/sessionShema';
+import './db/tagShema';
+import './db/linksTagShema';
 
 const app = express();
 const port = process.env.PORT || 3000;
