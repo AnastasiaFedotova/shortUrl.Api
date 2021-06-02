@@ -1,7 +1,6 @@
 import * as Sequelize from "sequelize";
 import sequelize from './dbShema';
 import Link from "../models/links";
-import Comment from "./commentShema";
 
 Link.init(
   {
@@ -24,10 +23,6 @@ Link.init(
     view_count: {
       type: Sequelize.INTEGER,
       allowNull: true
-    },
-    tags: {
-      type: Sequelize.ARRAY(Sequelize.STRING),
-      allowNull: true
     }
   },
   {
@@ -35,8 +30,5 @@ Link.init(
     tableName: 'links',
   }
 );
-
-Link.hasMany(Comment, { foreignKey: 'link_id' })
-Comment.belongsTo(Link, { foreignKey: 'id' })
 
 export default Link;

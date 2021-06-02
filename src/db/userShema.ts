@@ -2,6 +2,7 @@ import * as Sequelize from "sequelize";
 import sequelize from "./dbShema";
 import User from "../models/users";
 import Comment from "./commentShema";
+
 User.init(
   {
     id: {

@@ -13,14 +13,14 @@ LinksTag.init(
       type: Sequelize.INTEGER,
       allowNull: false
     },
-    links_id: {
-      type: Sequelize.ARRAY(Sequelize.INTEGER),
+    link_id: {
+      type: Sequelize.INTEGER,
       allowNull: false
     },
   },
   {
     sequelize,
-    tableName: 'linksTags',
+    tableName: 'linkstags',
   }
 );
 

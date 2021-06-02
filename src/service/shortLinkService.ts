@@ -1,4 +1,5 @@
 import Link from "../models/links";
+import Tag from "../models/tags";
 import { CustomLink, LinksInterface } from "./../interfaces/links";
 import getRandomUrl from "./../utils/getRandomUrl";
 
@@ -13,16 +14,31 @@ async function addLink(link: { url: string, tags: string[] }, userId: number): P
       const checkedLink = await findLinkByShortUrl(randomUrl);
       if (checkedLink) isUnique = false;
     }
+    const tags: Tag[] = [];
 
-    const newLink: LinksInterface = {
+    link.tags.forEach(async elem => {
+      tags.push(await Tag.create({
+        name: elem
+      }))
+    });
+
+    const newLink = await Link.create({
       original_url: link.url,
       short_url: randomUrl,
       user_id: +userId || null,
-      view_count: null,
-      tags: link.tags || null
-    };
+      view_count: null
+    });
 
-    return await Link.create(newLink);
+    tags.forEach(tag => {
+      newLink.addTag(tag, {
+        through: {
+          link_id: newLink.id,
+          tag_id: tag.id
+        }
+      });
+    })
+
+    return newLink
   } catch (err) {
     console.log(err)
   }
@@ -30,17 +46,21 @@ async function addLink(link: { url: string, tags: string[] }, userId: number): P
 
 async function readLinksList(): Promise<Array<Link>> {
   try {
-    return Link.findAll();
+    const links = await Link.findAll({ include: [Tag], raw: true });
+
+    return links;
   } catch (err) {
     console.log(err)
   }
 }
 
 async function readLinksListByTag(tag: string): Promise<Array<Link>> {
-  const links = await readLinksList();
+  const links = await Link.findAll({
+    include: [Tag], raw: true
+  });
 
   return links.filter(link => {
-    return link.tags?.includes(tag)
+    return link["Tags.name"] === tag
   });
 }
 

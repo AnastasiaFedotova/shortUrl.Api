@@ -1,5 +1,4 @@
 import { Model } from 'sequelize';
-
 export default class Link extends Model {
   id: number | null;
   original_url: string;
@@ -7,4 +6,6 @@ export default class Link extends Model {
   user_id: number | null;
   view_count: number | null;
   tags: string[];
+  addTag;
+  getTags;
 }
