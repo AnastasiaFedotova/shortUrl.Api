@@ -1,6 +1,6 @@
 import Comment from "../db/commentShema";
 import User from "../db/userShema";
-import { UsersResInterface } from "../interfaces/users";
+import { CommentsInterface } from "../interfaces/comments";
 
 async function readCommentsLinks(): Promise<Comment[]> {
   try {
@@ -24,7 +24,7 @@ async function addComment(message: string, userId: number, linkId: number): Prom
   }
 }
 
-async function findCommentsByLinksId(linkId: number): Promise<UsersResInterface[]> {
+async function findCommentsByLinksId(linkId: number): Promise<CommentsInterface[]> {
   try {
     const commentsList = await Comment.findAll({
       where: {
@@ -33,7 +33,7 @@ async function findCommentsByLinksId(linkId: number): Promise<UsersResInterface[
     });
 
     if (commentsList) {
-      const res: UsersResInterface[] = [];
+      const res: CommentsInterface[] = [];
       commentsList.forEach(comment => {
         return res.push({
           id: comment.id,
