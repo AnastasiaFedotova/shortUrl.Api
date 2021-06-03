@@ -1,5 +1,6 @@
 import Comment from "../db/commentShema";
 import User from "../db/userShema";
+import { UsersResInterface } from "../interfaces/users";
 
 async function readCommentsLinks(): Promise<Comment[]> {
   try {
@@ -23,7 +24,7 @@ async function addComment(message: string, userId: number, linkId: number): Prom
   }
 }
 
-async function findCommentsByLinksId(linkId: number): Promise<Comment[]> {
+async function findCommentsByLinksId(linkId: number): Promise<UsersResInterface[]> {
   try {
     const commentsList = await Comment.findAll({
       where: {
@@ -32,7 +33,21 @@ async function findCommentsByLinksId(linkId: number): Promise<Comment[]> {
     });
 
     if (commentsList) {
-      return commentsList;
+      const res: UsersResInterface[] = [];
+      commentsList.forEach(comment => {
+        return res.push({
+          id: comment.id,
+          message: comment.message,
+          link_id: comment.link_id,
+          user_id: comment.user_id,
+          user: {
+            id: comment.User.id,
+            login: comment.User.login
+          }
+        });
+      });
+
+      return res
     }
 
     throw new Error("Not found");

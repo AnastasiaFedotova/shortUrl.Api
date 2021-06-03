@@ -10,7 +10,7 @@ async function read(): Promise<Array<User>> {
   }
 }
 
-async function readUserById(userId: number): Promise<User> {
+async function readUserById(userId: number): Promise<UsersInterface> {
   try {
     const user = await User.findOne({
       where: {
@@ -19,7 +19,11 @@ async function readUserById(userId: number): Promise<User> {
     });
 
     if (user) {
-      return user;
+      return {
+        id: user.id,
+        login: user.login,
+        password: null
+      }
     }
 
     throw new Error("Not found");

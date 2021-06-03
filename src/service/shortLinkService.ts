@@ -14,13 +14,28 @@ async function addLink(link: { url: string, tags: string[] }, userId: number): P
       const checkedLink = await findLinkByShortUrl(randomUrl);
       if (checkedLink) isUnique = false;
     }
-    const tags: Tag[] = [];
 
-    link.tags.forEach(async elem => {
-      tags.push(await Tag.create({
-        name: elem
-      }))
-    });
+    const tagPromises: Promise<Tag>[] = [];
+    const tagArray: Tag[] = [];
+
+    for (const elem of link.tags) {
+      const isTagExists = await Tag.findOne({
+        where: {
+          name: elem
+        }
+      })
+
+      if (!isTagExists) {
+        const newTag = Tag.create({
+          name: elem
+        });
+        tagPromises.push(newTag);
+      } else {
+        tagArray.push(isTagExists);
+      }
+    }
+
+    const tags = tagArray.concat(await Promise.all(tagPromises));
 
     const newLink = await Link.create({
       original_url: link.url,
@@ -36,19 +51,37 @@ async function addLink(link: { url: string, tags: string[] }, userId: number): P
           tag_id: tag.id
         }
       });
-    })
+    });
 
-    return newLink
+    const res = {
+      id: newLink.id,
+      short_url: newLink.short_url,
+      original_url: newLink.original_url,
+      user_id: newLink.user_id,
+      view_count: newLink.view_count,
+      tags: link.tags
+    }
+
+    return res
   } catch (err) {
     console.log(err)
   }
 }
 
-async function readLinksList(): Promise<Array<Link>> {
+async function readLinksList(): Promise<Array<LinksInterface>> {
   try {
     const links = await Link.findAll({ include: [Tag], raw: true });
 
-    return links;
+    return links.map(link => {
+      return {
+        id: link.id,
+        short_url: link.short_url,
+        original_url: link.original_url,
+        user_id: link.user_id,
+        view_count: link.view_count,
+        tag: link["Tags.name"]
+      }
+    })
   } catch (err) {
     console.log(err)
   }
