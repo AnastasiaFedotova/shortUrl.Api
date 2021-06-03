@@ -18,20 +18,22 @@ async function addLink(link: { url: string, tags: string[] }, userId: number): P
     const tagPromises: Promise<Tag>[] = [];
     const tagArray: Tag[] = [];
 
-    for (const elem of link.tags) {
-      const isTagExists = await Tag.findOne({
-        where: {
-          name: elem
-        }
-      })
+    if (link.tags) {
+      for (const elem of link.tags) {
+        const isTagExists = await Tag.findOne({
+          where: {
+            name: elem
+          }
+        })
 
-      if (!isTagExists) {
-        const newTag = Tag.create({
-          name: elem
-        });
-        tagPromises.push(newTag);
-      } else {
-        tagArray.push(isTagExists);
+        if (!isTagExists) {
+          const newTag = Tag.create({
+            name: elem
+          });
+          tagPromises.push(newTag);
+        } else {
+          tagArray.push(isTagExists);
+        }
       }
     }
 

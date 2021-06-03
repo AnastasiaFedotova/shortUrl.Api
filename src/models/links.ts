@@ -8,8 +8,4 @@ export default class Link extends Model {
   tags: string[];
   addTag;
   getTags;
-  Tag?: {
-    id: number,
-    name: string
-  };
 }
