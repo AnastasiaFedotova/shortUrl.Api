@@ -99,12 +99,24 @@ async function readLinksListByTag(tag: string): Promise<Array<Link>> {
   });
 }
 
-async function readUserList(userId: number): Promise<Array<Link>> {
+async function readUserList(userId: number): Promise<Array<LinksInterface>> {
   try {
-    return Link.findAll({
+    const links = await Link.findAll({
       where: { user_id: +userId },
-      raw: true
+      raw: true,
+      include: [Tag]
     });
+
+    return links.map(link => {
+      return {
+        id: link.id,
+        short_url: link.short_url,
+        original_url: link.original_url,
+        user_id: link.user_id,
+        view_count: link.view_count,
+        tag: link["Tags.name"]
+      }
+    })
   } catch (err) {
     console.log(err)
   }
@@ -113,7 +125,7 @@ async function readUserList(userId: number): Promise<Array<Link>> {
 async function addViews(shortlink: string): Promise<void> {
   try {
     const link = await Link.findAll({ where: { short_url: shortlink }, raw: true });
-    const views = Number(link[0].view_count) + 1;
+    const views = Number(link[0]?.view_count) + 1;
     await Link.update({ view_count: views }, { where: { short_url: shortlink } });
   } catch (err) {
     console.log(err)
