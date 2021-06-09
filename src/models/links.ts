@@ -6,6 +6,7 @@ export default class Link extends Model {
   user_id: number | null;
   view_count: number | null;
   tags: string[];
+  author?: string;
   addTag;
   getTags;
 }

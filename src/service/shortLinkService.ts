@@ -1,5 +1,6 @@
 import Link from "../models/links";
 import Tag from "../models/tags";
+import User from "../models/users";
 import { CustomLink, LinksInterface } from "./../interfaces/links";
 import getRandomUrl from "./../utils/getRandomUrl";
 
@@ -72,7 +73,7 @@ async function addLink(link: { url: string, tags: string[] }, userId: number): P
 
 async function readLinksList(): Promise<Array<LinksInterface>> {
   try {
-    const links = await Link.findAll({ include: [Tag], raw: true });
+    const links = await Link.findAll({ include: [Tag, User], raw: true });
 
     return links.map(link => {
       return {
@@ -81,7 +82,8 @@ async function readLinksList(): Promise<Array<LinksInterface>> {
         original_url: link.original_url,
         user_id: link.user_id,
         view_count: link.view_count,
-        tag: link["Tags.name"]
+        tag: link["Tags.name"],
+        author: link["User.login"]
       }
     })
   } catch (err) {
@@ -89,13 +91,22 @@ async function readLinksList(): Promise<Array<LinksInterface>> {
   }
 }
 
-async function readLinksListByTag(tag: string): Promise<Array<Link>> {
+async function readLinksListByTag(tag: string): Promise<Array<LinksInterface>> {
   const links = await Link.findAll({
-    include: [Tag], raw: true
+    include: [Tag, User], raw: true
   });
-
   return links.filter(link => {
     return link["Tags.name"] === tag
+  }).map(link => {
+    return {
+      id: link.id,
+      short_url: link.short_url,
+      original_url: link.original_url,
+      user_id: link.user_id,
+      view_count: link.view_count,
+      tag: link["Tags.name"],
+      author: link["User.login"]
+    }
   });
 }
 
@@ -104,7 +115,7 @@ async function readUserList(userId: number): Promise<Array<LinksInterface>> {
     const links = await Link.findAll({
       where: { user_id: +userId },
       raw: true,
-      include: [Tag]
+      include: [Tag, User]
     });
 
     return links.map(link => {
@@ -114,7 +125,8 @@ async function readUserList(userId: number): Promise<Array<LinksInterface>> {
         original_url: link.original_url,
         user_id: link.user_id,
         view_count: link.view_count,
-        tag: link["Tags.name"]
+        tag: link["Tags.name"],
+        author: link["User.login"]
       }
     })
   } catch (err) {

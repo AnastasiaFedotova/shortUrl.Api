@@ -4,7 +4,8 @@ export interface LinksInterface {
   short_url: string | null;
   user_id: number | null;
   view_count: number | null;
-  tags?: string[]
+  tags?: string[],
+  author?: string;
 }
 
 export interface CustomLink {
