@@ -1,10 +1,19 @@
-import { Model } from 'sequelize';
-import User from './users';
-
-export default class Comment extends Model {
-  id: number;
-  message: string;
-  link_id: number;
+import { Column, Model, Table } from 'sequelize-typescript';
+import { User } from './users';
+@Table
+export class Comment extends Model {
+  @Column({allowNull: false})
   user_id: number;
+
+  @Column({allowNull: false})
+  link_id: number;
+
+  @Column
   User?: User;
+
+  @Column({allowNull: false})
+  message: string;
+
+  @Column({ primaryKey: true, autoIncrement: true })
+  id: number;
 }

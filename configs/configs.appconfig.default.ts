@@ -1,7 +1,11 @@
 const config = {
-  db_name: '',
-  user: '',
-  password: ''
+  dialect: '',
+  host: '',
+  port: '',
+  username: '',
+  password: '',
+  database: '',
+  models: [],
 };
 
 export default config;

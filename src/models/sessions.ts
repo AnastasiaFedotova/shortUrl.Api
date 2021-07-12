@@ -1,7 +1,13 @@
-import { Model } from 'sequelize';
+import { Column, Model, Table } from 'sequelize-typescript';
 
-export default class Session extends Model {
-  id: string;
+@Table
+export class Session extends Model {
+  @Column({allowNull: false})
   date: Date;
+
+  @Column({allowNull: false})
   user_id: number;
+
+  @Column({ allowNull: false, primaryKey: true })
+  id: string;
 }

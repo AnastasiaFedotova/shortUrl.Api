@@ -1,7 +1,13 @@
-import { Model } from 'sequelize';
+import { Column, Model, Table } from 'sequelize-typescript';
 
-export default class LinksTag extends Model {
-  id: number;
+@Table
+export class LinksTag extends Model {
+  @Column({allowNull: false})
+  link_id: number;
+
+  @Column({allowNull: false})
   tag_id: number;
-  links_id: Array<number>;
+
+  @Column({ allowNull: false, primaryKey: true, autoIncrement: true })
+  id: number;
 }
