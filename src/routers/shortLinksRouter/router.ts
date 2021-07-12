@@ -1,14 +1,17 @@
-const { Router } = require('express');
-const { LinksModel } = require('./../../config/dbShema')
+import { Router } from "express";
+import Link from "../../models/links";
+import { urlService } from "./../../service/shortLinkService";
+
 const shortLinksRouter = Router();
 
 shortLinksRouter.get("/:link", async (req, res) => {
-  const link = req.params.link;
-  LinksModel.findAll({ where: { short_url: link }, raw: true })
-    .then(data => {
-      res.redirect(data[0].original_url);
-    })
-    .catch(err => console.log(err));
+  try {
+    const link = req.params.link;
+    const [data] = await Promise.all([Link.findAll({ where: { short_url: link }, raw: true }), urlService.addViews(link)])
+    res.redirect(data[0].original_url)
+  } catch (err) {
+    console.log(err);
+  }
 });
 
-export = shortLinksRouter;
+export default shortLinksRouter;

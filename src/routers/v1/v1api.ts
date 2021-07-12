@@ -1,7 +1,10 @@
-const { Router } = require("express");
-const { linksApi } = require("./links");
+import { Router } from "express";
+import linksApi from "./links";
+import usersApi from './users';
+
 const api = Router();
 
 api.use("/links", linksApi);
+api.use("/users", usersApi);
 
-module.exports = api;
+export default api;
